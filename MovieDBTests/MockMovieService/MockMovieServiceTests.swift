@@ -39,7 +39,7 @@ struct MockMovieServiceTests {
     }
     
     @Test func mockMovie_failure_noInternet_result() async throws {
-        let mockApiClient = MockAPINoInternet()
+        let mockApiClient = MockAPIUnAuthorizedClient()
         let mockMovieService = MoviesService(apiClient: mockApiClient)
         
         do {
