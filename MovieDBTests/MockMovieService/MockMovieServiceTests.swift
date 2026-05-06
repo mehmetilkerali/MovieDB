@@ -55,6 +55,23 @@ struct MockMovieServiceTests {
         }
     }
     
+    @Test func mockMovie_failure_noInternet_result3() async throws {
+        let mockApiClient = MockAPIUnAuthorizedClient()
+        let mockMovieService = MoviesService(apiClient: mockApiClient)
+        
+        do {
+            _ = try await mockMovieService.fetchTopRatedMovies(page: 1)
+        } catch let error as APIError {
+            switch error{
+            case .noInternet:
+                #expect(true)
+                return
+            default:
+                Issue.record("Error type is not correct")
+            }
+        }
+    }
+    
     @Test func mockMovie_failure_noInternet_result2() async throws {
         let mockApiClient = MockAPINoInternet()
         let mockMovieService = MoviesService(apiClient: mockApiClient)
